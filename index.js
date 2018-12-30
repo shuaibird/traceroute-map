@@ -12,9 +12,9 @@ if (!destination) {
   throw Error('usage: node traceroute.js [HOST]')
 }
 
-const main = spawn('traceroute', [destination])
+const traceroute = spawn('traceroute', [destination])
 
-concatBuffer(main, async (list) => {
+concatBuffer(traceroute, async (list) => {
   const routers = list.trim().split('\n')
     .map((line) => {
       const matched = line.match(/\((\d{1,3}\.){3}\d{1,3}\)/)
