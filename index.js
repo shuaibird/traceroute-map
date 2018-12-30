@@ -4,7 +4,7 @@ const { spawn } = require('child_process')
 const { concatBuffer, isIpPrivate } = require('./utils')
 
 const IpLookup = require('./ip-lookup')
-const ipLookup = new IpLookup(process.env.API_ACCESS_KEY)
+const ipLookup = new IpLookup(process.env.IPAPI_API_KEY)
 
 const [destination] = process.argv.slice(2)
 
