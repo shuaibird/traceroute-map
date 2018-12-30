@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const { spawn } = require('child_process')
-const { concatBuffer } = require('./utils')
+const { concatBuffer, isIpPrivate } = require('./utils')
 
 const IpLookup = require('./ip-lookup')
 const ipLookup = new IpLookup(process.env.API_ACCESS_KEY)
@@ -26,6 +26,7 @@ concatBuffer(traceroute, async (list) => {
       }
     })
     .filter((ip) => !!ip)
+    .filter((ip) => !isIpPrivate(ip))
 
   const data = await Promise.all(routers.map(async (router) => await ipLookup.lookup(router)))
   console.log(data)
