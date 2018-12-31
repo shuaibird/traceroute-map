@@ -1,12 +1,10 @@
-require('dotenv').config()
-
 const { spawn } = require('child_process')
 const { concatBuffer, isIpPrivate } = require('./utils')
 
-const IpLookup = require('./ip-lookup')
-const ipLookup = new IpLookup(process.env.IPAPI_API_KEY)
+const trace = ({ apiKey, host, cb }) => {
+  const IpLookup = require('./ip-lookup')
+  const ipLookup = new IpLookup(apiKey)
 
-const trace = (host, cb) => {
   const traceroute = spawn('traceroute', [host])
 
   concatBuffer(traceroute, async (list) => {
