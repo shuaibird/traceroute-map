@@ -22,7 +22,7 @@ const trace = ({ apiKey, host, cb }) => {
       .filter((ip) => !isIpPrivate(ip))
 
     const data = await Promise.all(routers.map(async (router) => await ipLookup.lookup(router)))
-    cb(data)
+    cb(data.filter(({ latitude }) => !!latitude))
   })
 }
 
