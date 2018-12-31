@@ -28,13 +28,26 @@
           mapTypeId: 'terrain'
         })
 
+        var coordinates = {{COORDINATES}}
+        
+        // Marker
+        var markers = coordinates.map((position) => {
+          var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: 'test',
+          })
+          return marker
+        })
+
+        // Polyline
         var lineSymbol = {
           path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
         }
 
         var tracePath = new google.maps.Polyline({
-          map,
-          path: {{COORDINATES}},
+          map: map,
+          path: coordinates, 
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
