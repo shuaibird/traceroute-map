@@ -21,24 +21,30 @@
   <body>
     <div id="map"></div>
     <script>
-
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 3,
-          center: {lat: 0, lng: -180},
+          center: { lat: 0, lng: -180 },
           mapTypeId: 'terrain'
-        });
+        })
 
-        var coordinates = {{COORDINATES}}
+        var lineSymbol = {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        }
+
         var tracePath = new google.maps.Polyline({
-          path: coordinates,
+          map,
+          path: {{COORDINATES}},
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
+          strokeWeight: 2,
+          icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+          }],
+        })
 
-        tracePath.setMap(map);
       }
     </script>
     <script async defer
