@@ -29,14 +29,28 @@
         })
 
         var coordinates = {{COORDINATES}}
-        
+
         // Marker
         var markers = coordinates.map((position) => {
+          let label = ''
+          if (position.city) {
+            label = position.city
+          } else if (position.country) {
+            label = position.country
+          } else if (position.continent) {
+            label = position.continent
+          }
+
           var marker = new google.maps.Marker({
-            position: position,
+            position: { lat: position.lat, lng: position.lng },
             map: map,
-            title: 'test',
+            label: {
+              text: label,
+              color: 'white',
+              fontWeight: 'bold',
+            },
           })
+
           return marker
         })
 
@@ -47,7 +61,7 @@
 
         var tracePath = new google.maps.Polyline({
           map: map,
-          path: coordinates, 
+          path: coordinates,
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
