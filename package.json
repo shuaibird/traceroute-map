@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^6.2.0",
+    "live-server": "^1.2.1",
     "node-fetch": "^2.3.0"
   }
 }
