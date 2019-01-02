@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const fs = require('fs')
 const path = require('path')
+const liveServer = require('live-server')
 
 const trace = require('./trace')
 
@@ -12,7 +13,9 @@ if (!host) {
 }
 
 const templateFile = path.join(__dirname, 'template.html')
-const outputFile = path.join(__dirname, 'map.html')
+
+const outputFilename = 'map.html'
+const outputFile = path.join(__dirname, outputFilename)
 
 trace({
   host,
@@ -49,6 +52,20 @@ trace({
         .replace('{{GOOGLE_API_KEY}}', apiKey)
 
       fs.writeFile(outputFile, output, () => {
+        // Start a http server to open the map
+        const opts = {
+          file: outputFilename,
+        }
+
+        liveServer.start(opts)
+        
+        // delete the output file when the process ends
+        process.on('SIGINT', () => {
+          fs.unlink(outputFile, () => {
+            process.exit()
+          })
+        })
+
       })
     })
   },
